@@ -1,47 +1,54 @@
-# Astro Starter Kit: Minimal
+# Image Compressor App
 
-```sh
-npm create astro@latest -- --template minimal
+A fast and modern image compression web app built with **Astro**, **Vite**, **TypeScript**, and **React**. Users can compress and convert multiple images using **Sharp**, download them in bulk using **JSZip**, and save locally via **FileSaver.js**. Styled with the elegant **shadcn/ui** library. Containerized using **Docker** for easy deployment.
+
+## 🚀 Features
+
+- 🔄 Compress and convert multiple images at once using a drag and drop interface or uploading files directly from your computer
+- 📦 Download compressed files individually or as a ZIP archive
+- 💅 Stylish and accessible UI with shadcn
+- ⚡ Fast development with Vite and Astro
+- 🐳 Docker support for containerized deployment
+
+## 📦 Tech Stack
+
+- **Framework**: [Astro](https://astro.build/)
+- **Bundler**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **UI Library**: [React](https://reactjs.org/), [shadcn/ui](https://ui.shadcn.com/)
+- **Compression & Export**: [Sharp](https://sharp.pixelplumbing.com/), [JSZip](https://stuk.github.io/jszip/), [FileSaver.js](https://github.com/eligrey/FileSaver.js)
+- **Deployment**: [Docker](https://www.docker.com/)
+
+## 📥 Cloning the Repository
+
+To get started locally:
+
+```bash
+git clone https://github.com/aronhawkins-4/image-compressor.git
+cd image-compressor
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## 🛠️ Scripts
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+To run and manage the project locally or in production, use the following scripts:
 
-## 🚀 Project Structure
+| Script           | Description                            |
+|------------------|----------------------------------------|
+| `npm run dev`     | Starts the dev server (hot reload)      |
+| `npm run build`   | Builds the app for production           |
+| `npm run preview` | Previews the production build           |
+| `npm run astro`   | Runs Astro CLI commands manually        |
+| `npm run docker`  | Builds and runs the Docker container    |
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🐳 Docker Usage
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+The `npm run docker` script runs the following commands:
+
+```bash
+docker build -t image-compressor . && docker run -p 4322:4322 image-compressor
 ```
+This will start a Docker container with your application and run it at http://localhost:4322
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🧪 Contributing
+Feel free to fork, submit issues, or open pull requests. Contributions are welcome!
