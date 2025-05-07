@@ -1,16 +1,16 @@
 ---
-
+import { FileDropzone } from '@/components/FileDropzone';
+import { UploadForm } from '@/components/UploadForm';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+	<main class='flex justify-center items-center min-h-screen'>
+		<div class='container py-16'>
+			<div class='max-w-2xl mx-auto flex flex-col gap-16'>
+				<h1 class='text-center text-4xl font-bold'>Image Compressor</h1>
+				<UploadForm client:only='react' />
+			</div>
+		</div>
+	</main>
+</BaseLayout>
