@@ -9,16 +9,17 @@ export const server = {
         input: z.object({
             file: z.instanceof(File),
             type: z.string().refine((val) => ['webp', 'avif']),
-            quality: z.string()
+            quality: z.string(),
+            width: z.string().optional()
         }),
-        handler: async({file, type, quality}) => {
+        handler: async({file, type, quality, width}) => {
 
             const arrayBuffer = await file.arrayBuffer()
             let compressedImageBuffer: ArrayBuffer;
             if (type === 'webp') {
-                compressedImageBuffer = await sharp(arrayBuffer).resize(1920).webp({quality: parseInt(quality)}).toBuffer();
+                compressedImageBuffer = width ? await sharp(arrayBuffer).resize(Number(width)).webp({quality: parseInt(quality)}).toBuffer() : await sharp(arrayBuffer).webp({quality: parseInt(quality)}).toBuffer();
             } else {
-                compressedImageBuffer = await sharp(arrayBuffer).resize(1920).avif({quality: parseInt(quality)}).toBuffer();
+                compressedImageBuffer = width ? await sharp(arrayBuffer).resize(Number(width)).avif({quality: parseInt(quality)}).toBuffer() : await sharp(arrayBuffer).avif({quality: parseInt(quality)}).toBuffer();
             }
 
             return compressedImageBuffer
