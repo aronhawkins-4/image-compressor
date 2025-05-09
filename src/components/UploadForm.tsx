@@ -9,11 +9,14 @@ import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group"
 import { Slider } from "./ui/slider"
 import { LoaderCircle } from "lucide-react"
 import JSZip from 'jszip'
+import { Input } from "./ui/input"
+import { Separator } from "./ui/separator"
 
 type FormInput = {
     files: File[] | undefined
     fileType: 'webp' | 'avif'
     quality: string
+    width: string | undefined
 }
 type DownloadData = {
     filename: string,
@@ -37,9 +40,11 @@ export const UploadForm = () => {
         setValue,
         setError,
         clearErrors,
-    } = useForm<FormInput>({ defaultValues: { files: undefined, fileType: fileType, quality: '75' } })
+        register
+    } = useForm<FormInput>({ defaultValues: { files: undefined, fileType: fileType, quality: '75', width: undefined } })
     const quality = watch('quality')
     const files = watch('files')
+    const width = watch('width')
 
     const setFilesValue = (files: File[]) => {
         setValue('files', files)
@@ -74,6 +79,7 @@ export const UploadForm = () => {
             setError('files', { message: 'No files selected' })
             return
         }
+        console.log(data)
         setDownloadData([])
         setIsLoading(true)
         const promises = Array.from(Array(data.files.length)).map(async (_, index) => {
@@ -86,6 +92,7 @@ export const UploadForm = () => {
                     formData.append('file', file);
                     formData.append('type', data.fileType)
                     formData.append('quality', data.quality)
+                    formData.append('width', data.width || '')
                     const { data: resData, error } = await actions.compressImage(formData)
                     if (resData) {
                         const blob = new Blob([resData], { type: `image/${data.fileType}` });
@@ -119,7 +126,7 @@ export const UploadForm = () => {
             {errors && Object.values(errors).map((error, index) => (
                 <span className="text-destructive" key={index}>{error.message}</span>
             ))}
-            <div className="flex items-start gap-4">
+            <div className="flex items-stretch gap-4">
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="file-type">File Type</Label>
                     <ToggleGroup type="single" variant={'outline'} value={fileType} id="file-type" onValueChange={(value) => {
@@ -131,6 +138,7 @@ export const UploadForm = () => {
                         <ToggleGroupItem value="webp">.webp</ToggleGroupItem>
                     </ToggleGroup>
                 </div>
+                <Separator orientation={'vertical'} className="data-[orientation=vertical]:h-auto" />
                 <div className="flex flex-col gap-2 flex-1">
                     <Label htmlFor="quality">Quality</Label>
                     <div className="flex items-center gap-4 mt-[.35rem]">
@@ -142,6 +150,11 @@ export const UploadForm = () => {
 
                     </div>
 
+                </div>
+                <Separator orientation={'vertical'} className="data-[orientation=vertical]:h-auto" />
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor="width">Width</Label>
+                    <Input type="number" placeholder="Default" {...register('width')}></Input>
                 </div>
             </div>
             <Button type="submit" className="cursor-pointer" >
